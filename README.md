@@ -9,6 +9,8 @@ Projeto criado durante estudo de Node.js e Nest.JS, em curso da Udemy.
 #### Pacotes Utilizados
 
 * fastify
+* jest
+* config
 
 #### Banco de Dados
 
