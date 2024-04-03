@@ -11,6 +11,7 @@ Projeto criado durante estudo de Node.js e Nest.JS, em curso da Udemy.
 * fastify
 * jest
 * config
+* faker
 
 #### Banco de Dados
 
