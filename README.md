@@ -12,6 +12,7 @@ Projeto criado durante estudo de Node.js e Nest.JS, em curso da Udemy.
 * jest
 * config
 * faker
+* uuid
 
 #### Banco de Dados
 
