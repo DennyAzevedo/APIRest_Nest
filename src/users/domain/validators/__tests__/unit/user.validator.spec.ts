@@ -165,6 +165,32 @@ describe('UserValidator unit tests', () => {
 			])
 		})
 	})
+
+	describe('CreatedAt field', () => {
+
+		it('CreatedAt field is a number', () => {
+			const isValid = sut.validate({
+				...props,
+				createdAt: 10 as any,
+			})
+			expect(isValid).toBeFalsy()
+			//console.log(sut.errors)
+			expect(sut.errors['createdAt']).toStrictEqual([
+				'createdAt must be a Date instance',
+			])
+		})
+
+		it('CreatedAt field is a string', () => {
+			const isValid = sut.validate({
+				...props,
+				createdAt: '2024' as any,
+			})
+			expect(isValid).toBeFalsy()
+			expect(sut.errors['createdAt']).toStrictEqual([
+				'createdAt must be a Date instance',
+			])
+		})
+	})
 })
 
 /*
@@ -183,5 +209,8 @@ password: [
 	'password should not be empty',
 	'password must be a string',
 	'password must be shorter than or equal to 100 characters'
+]
+createdAt: [
+	'createdAt must be a Date instance'
 ]
 */
