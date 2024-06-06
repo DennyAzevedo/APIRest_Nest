@@ -1,15 +1,17 @@
 import { UserDataBuilder } from "@/users/domain/testing/helpers/user-data-builder"
 import { UserRules, UserValidator, UserValidatorFactory } from "../../user.validator"
+import { UserProps } from "@/users/domain/entities/user.entity"
 
 let sut: UserValidator
+let props: UserProps
 
 describe('UserValidator unit tests', () => {
 	beforeEach(() => {
 		sut = UserValidatorFactory.create()
+		props = UserDataBuilder({})
 	})
 
 	it('valid case for user validator class', () => {
-			const props = UserDataBuilder({})
 			const isValid = sut.validate(props)
 			expect(isValid).toBeTruthy()
 			expect(sut.validatedData).toStrictEqual(new UserRules(props))
@@ -28,7 +30,7 @@ describe('UserValidator unit tests', () => {
 		})
 		it('Name field is empty', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				name: '' as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -39,7 +41,7 @@ describe('UserValidator unit tests', () => {
 
 		it('Name field is a number', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				name: 10 as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -51,7 +53,7 @@ describe('UserValidator unit tests', () => {
 
 		it('Name field is larger than 255 characters', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				name: 'a'.repeat(256) as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -83,7 +85,7 @@ describe('UserValidator unit tests', () => {
 		})
 		it('Email field is empty', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				email: '' as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -95,7 +97,7 @@ describe('UserValidator unit tests', () => {
 
 		it('Email field is a number', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				email: 10 as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -108,7 +110,7 @@ describe('UserValidator unit tests', () => {
 
 		it('Email field is larger than 255 characters', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				email: 'a'.repeat(256) as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -131,7 +133,7 @@ describe('UserValidator unit tests', () => {
 		})
 		it('Password field is empty', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				password: '' as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -142,7 +144,7 @@ describe('UserValidator unit tests', () => {
 
 		it('Password field is a number', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				password: 10 as any,
 			})
 			expect(isValid).toBeFalsy()
@@ -154,7 +156,7 @@ describe('UserValidator unit tests', () => {
 
 		it('Password field is larger than 100 characters', () => {
 			const isValid = sut.validate({
-				...UserDataBuilder({}),
+				...props,
 				password: 'a'.repeat(101) as any,
 			})
 			expect(isValid).toBeFalsy()
