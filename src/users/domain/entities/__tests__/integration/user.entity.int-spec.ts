@@ -1,6 +1,7 @@
 import { EntityValidationError } from './../../../../../shared/domain/errors/validation-error';
 import { UserDataBuilder } from "@/users/domain/testing/helpers/user-data-builder"
 import { UserEntity, UserProps } from "../../user.entity"
+import { de } from '@faker-js/faker';
 
 let props: UserProps
 
@@ -137,6 +138,29 @@ describe('UserEntity integration tests', () => {
 			expect.assertions(0)
 			const user = new UserEntity(props)
 			user.update('new name')
+		})
+	})
+	describe('UpdatePassword method', () => {
+		it('Should throw an error when updating a user with invalid password - null', () => {
+			const user = new UserEntity(props)
+			expect(() => user.updatePassword(null as any)).toThrow(EntityValidationError)
+		})
+		it('Should throw an error when updating a user with invalid password - empty', () => {
+			const user = new UserEntity(props)
+			expect(() => user.updatePassword('' as any)).toThrow(EntityValidationError)
+		})
+		it('Should throw an error when updating a user with invalid password - no string', () => {
+			const user = new UserEntity(props)
+			expect(() => user.updatePassword(10 as any)).toThrow(EntityValidationError)
+		})
+		it('Should throw an error when updating a user with invalid password - large', () => {
+			const user = new UserEntity(props)
+			expect(() => user.updatePassword('a'.repeat(101) as any)).toThrow(EntityValidationError)
+		})
+		it('Should an valid User', () => {
+			expect.assertions(0)
+			const user = new UserEntity(props)
+			user.updatePassword('new password')
 		})
 	})
 })
