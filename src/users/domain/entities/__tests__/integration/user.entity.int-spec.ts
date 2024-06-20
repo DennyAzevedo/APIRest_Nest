@@ -65,5 +65,33 @@ describe('UserEntity integration tests', () => {
 			}
 			expect(() => new UserEntity(valid)).toThrow(EntityValidationError)
 		})
+		it('Should throw an error when creating a user with invalid password - null', () => {
+			const valid: UserProps = {
+				... props,
+				password: null as any,
+			}
+			expect(() => new UserEntity(valid)).toThrow(EntityValidationError)
+		})
+		it('Should throw an error when creating a user with invalid password - empty', () => {
+			const valid: UserProps = {
+				... props,
+				password: '' as any,
+			}
+			expect(() => new UserEntity(valid)).toThrow(EntityValidationError)
+		})
+		it('Should throw an error when creating a user with invalid password - no string', () => {
+			const valid: UserProps = {
+				... props,
+				password: 10 as any,
+			}
+			expect(() => new UserEntity(valid)).toThrow(EntityValidationError)
+		})
+		it('Should throw an error when creating a user with invalid password - large', () => {
+			const valid: UserProps = {
+				... props,
+				password: 'a'.repeat(101) as any,
+			}
+			expect(() => new UserEntity(valid)).toThrow(EntityValidationError)
+		})
 	})
 })
